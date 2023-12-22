@@ -1,0 +1,25 @@
+name: "CI: PHP linter"
+run-name: Running PHP Linter
+on: [push]
+jobs:
+  php-code-style:
+    name: Validate code style
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "composer run phpcs"
+
+  php-type-check:
+    name: Validate types
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "composer run phpstan"
+      - run: echo "composer run psalm"
+
+  reusable-workflow-job:
+    name: Run reuseable workflow
+    needs: [php-code-style, php-type-check]
+    uses: ./.github/workflows/reuseable-workflow.yml
+    with:
+      config-path: ./config/global.ini
+    secrets:
+      envPAT: "!SeC&Ure"

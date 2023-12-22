@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      envPAT:
+        required: true
+
+jobs:
+  config-path:
+    name: Run job for config
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The path is ${{ inputs.config-path }}"
+  secret:
+    name: Run job for secret of enc PAT
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The secret is ${{ secrets.envPAT }}"
